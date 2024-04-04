@@ -1,4 +1,4 @@
-package com.blit;
+package com.blit.controllers;
 
 public interface CODE_GOES_HERE {
 
