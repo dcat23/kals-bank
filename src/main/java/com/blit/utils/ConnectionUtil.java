@@ -19,9 +19,10 @@ public class ConnectionUtil {public static Connection getConnection() throws SQL
 	}
 	
 	//credentials
-	String location = "jdbc:mysql://localhost:3306/bilt";
+	// todo: fix db name
+	String location = "jdbc:mysql://localhost:3309/bilt";
 	String username = "root";
-	String password = "kalCfc,24";
+	String password = "password";
 	
 	return DriverManager.getConnection(location, username, password);
 }
