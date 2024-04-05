@@ -17,20 +17,20 @@ public class CustomerDAOImpl implements CustomerDAO {
 	@Override
 	public Customer findByAccountNumber(int accNo) {
 		try(Connection conn = ConnectionUtil.getConnection()){
-			String sql = "SELECT name,Accountnumber,email,Balance FROM customers,account"
-					+ "WHERE customers.Accountnumber= ?";
-		
-			PreparedStatement statement = conn.prepareStatement(sql);
-	        statement.setInt(1,accNo);		
-			ResultSet result = statement.executeQuery();
-			
+			String sql = "SELECT * FROM Customers WHERE account_number = '" +
+					accNo + "';";
+
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
 			Customer customer = new Customer();
+
 			while(result.next()) {
 				
-				customer.setAccountnumber(result.getInt("Accountnumber"));
-			   customer.setBalance(result.getLong("B1alance"));
+				customer.setAccountnumber(result.getInt("account_number"));
+//			   customer.setBalance(result.getLong("Balance"));
 				customer.setEmail(result.getString("email"));
 				customer.setName(result.getString("name"));
+				customer.setPassword(result.getString("password"));
 			}
 			
 			return customer;

@@ -10,13 +10,28 @@ public class CustomersService {
 	private CustomerDAO customerDAO = new CustomerDAOImpl();
 	
 	public void deposit(long amount) {
-		long balance = customer.getBalance();
-		if (amount>=1) {
-			balance = balance+amount;
-			 System.out.println("Deposit of "+ amount +"$  Sucessful.");
-		}else {
-			System.out.println("Deposit of "+ amount+ "$ Successful.");
+
+		try {
+			customer.setBalance(amount);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
+
+
+
+//		accountDAO.updateBalance(customer);
+
+//		long updatedBalance = customer.getBalance();
+
+//		Insert intp a
+
+
+//		if (amount>=1) {
+//			balance = balance+amount;
+//			 System.out.println("Deposit of "+ amount +"$  Sucessful.");
+//		}else {
+//			System.out.println("Deposit of "+ amount+ "$ Successful.");
+//		}
 		}
 		
 		
@@ -31,6 +46,8 @@ public class CustomersService {
 		}
 	}
 
+
+
 	
 	public void Login(int accNo, String password) throws Exception {
 		// TODO Auto-generated method stub
@@ -38,15 +55,13 @@ public class CustomersService {
 		if (customer == null) {
 			throw new Exception("Invalid account");
 		}
-		System.out.println(customer + " c "+" p");
-		if (!customer.password.equals(password)) {
+//		System.out.println(customer + " c "+" p");
+
+		if (!customer.getPassword().equals(password)) {
 			throw new Exception("Invalid passwords");
 		}
 		
-		// make sure passwords match
-		
-		//
-		
-		
+		this.customer = customer;
+
 	}
 }
