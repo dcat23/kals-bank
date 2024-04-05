@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Customer {
 	private String name;
-	public long balance;
+	private long balance;
 	private String email;
 	private int Accountnumber;
 	public String password;

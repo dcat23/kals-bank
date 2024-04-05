@@ -5,6 +5,6 @@ import com.blit.models.Customer;
 public interface CustomerDAO {
 
 	Customer findByAccountNumber(int accNo);
-	
 
+    boolean updateBalance(Customer customer);
 }

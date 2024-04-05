@@ -9,37 +9,39 @@ public class CustomersService {
 	private Customer customer = new Customer();
 	private CustomerDAO customerDAO = new CustomerDAOImpl();
 	
-	public void deposit(long amount) {
+	public void deposit(long amount) throws Exception {
+
+		if (amount <= 0) {
+			throw new Exception("Cannot deposit negative balance");
+		}
 
 		try {
-			customer.setBalance(amount);
+
+			customer.setBalance(amount + customer.getBalance());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
 
+		boolean success = customerDAO.updateBalance(customer);
 
-//		accountDAO.updateBalance(customer);
-
-//		long updatedBalance = customer.getBalance();
-
-//		Insert intp a
-
-
-//		if (amount>=1) {
-//			balance = balance+amount;
-//			 System.out.println("Deposit of "+ amount +"$  Sucessful.");
-//		}else {
-//			System.out.println("Deposit of "+ amount+ "$ Successful.");
-//		}
+		if (success) {
+			System.out.println("Updated balance " + customer.getBalance());
+		} else {
+			throw new Exception("Something went wrong updating balance");
 		}
-		
+	}
+
 		
 	public void withdraw(long amount) {
+		System.out.println("withdrawing $" + amount);
 		long balance = customer.getBalance();
-		if (amount>=1 && amount<=balance) {
+		if (amount > 0 && amount<=customer.getBalance()) {
 			balance = balance-amount;
-			 System.out.println("Withdraw of "+ amount +"$  Sucessful.");
+			customer.setBalance(balance);
+			boolean updated = customerDAO.updateBalance(customer);
+
+
 		}else {
 
 			 System.out.println("Sorry Something went Wrong try to Put a valid Amount");
@@ -50,8 +52,9 @@ public class CustomersService {
 
 	
 	public void Login(int accNo, String password) throws Exception {
-		// TODO Auto-generated method stub
 		Customer customer = customerDAO.findByAccountNumber(accNo);
+		System.out.println("login:" + customer);
+
 		if (customer == null) {
 			throw new Exception("Invalid account");
 		}

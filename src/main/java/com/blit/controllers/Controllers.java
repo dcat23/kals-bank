@@ -8,7 +8,7 @@ public class Controllers {
 	Scanner scan=new Scanner(System.in);
 	CustomersService service = new CustomersService();
 	
-	public void Login() throws Exception {
+	public void login() throws Exception {
 		System.out.println("Insert Your Account Number");
 		int accNo = scan.nextInt();
 		scan.nextLine();
@@ -16,8 +16,8 @@ public class Controllers {
 		String password= scan.nextLine();	
 		
 		service.Login(accNo, password);
-		
 	}
+
 	public void Emplogin() {
 		System.out.println("Employee Name");
 		String empname = scan.next();
@@ -35,20 +35,23 @@ public class Controllers {
 		
 	}
 
-		
-	 public void deposit() {
-		 System.out.println("please insert the amount you want to deposit");
-		 long amount=scan.nextLong();
-       service.deposit(amount);
-       }
-	 
-	public void withdraw() {
+	public void deposit() {
 		System.out.println("please insert the amount you want to deposit");
-		 long amount=scan.nextLong();
-		
-		 service.withdraw(amount);
-		
-	} /* public void transfer() {
+		long amount=scan.nextLong();
+        try {
+            service.deposit(amount);
+        } catch (Exception e) {
+			e.printStackTrace();
+        }
+    }
+	public void withdraw() {
+		System.out.println("please insert the amount you want to withdraw");
+		long amount = scan.nextLong();
+		service.withdraw(amount);
+	}
+
+
+	/* public void transfer() {
 		
 		 long amount=scan.nextLong();
         if (amount <= balance) {
@@ -58,4 +61,5 @@ public class Controllers {
         } else {
             System.out.println("Insufficient funds for transfer!");
         }*/
-	}
+
+}
